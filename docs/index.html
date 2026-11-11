@@ -79,7 +79,7 @@
               </a>
             </span>
             <span class="link-block">
-              <a href="#results" class="button is-normal is-rounded is-dark">
+              <a href="#teaser" class="button is-normal is-rounded is-dark">
                 <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
               </a>
             </span>
@@ -96,16 +96,15 @@
 </section>
 
 <!-- ========== Teaser video ========== -->
-<!-- [teaser.mp4: 파일 올린 뒤 주석 해제]
 <section class="section pt-0" id="teaser">
   <div class="container is-max-desktop">
     <video autoplay muted loop playsinline controls style="width:100%; border-radius:6px;">
-      <source src="teaser.mp4" type="video/mp4">
+      <source src="picr_videos_combined.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+    <p class="caption">Overview (64&nbsp;s): prediction under a changing payload, physically meaningful torque terms, and response to a torque intervention.</p>
   </div>
 </section>
--->
 
 <!-- ========== Abstract (작성 후 주석 해제) ==========
 <section class="section alt-bg" id="abstract">
@@ -160,15 +159,15 @@
           dynamics from recent interactions and achieves the <b>lowest prediction error in both the seen and unseen mass ranges</b>.
         </p>
       </div>
-      <!-- [payload_sweep.mp4: 파일 올린 뒤 주석 해제]
-<div class="media-block">
+      <div class="media-block">
         <video autoplay muted loop playsinline controls>
-          <source src="payload_sweep.mp4" type="video/mp4">
+          <source src="cubes_realtime_row.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <p class="caption">Figure-eight tracking as the payload ramps 0.1 → 4.0&nbsp;kg (grey: true cube, coloured: predicted).</p>
+        <p class="caption">Real-time playback (30.8&nbsp;s). The payload grows from 0.1 to 4&nbsp;kg; training covers only up to 2&nbsp;kg.
+          At every moment, PICR and four baselines predict the cube position 0.3&nbsp;s ahead.
+          Top row: predicted cube (coloured) vs. true cube (grey). Bottom row: accumulating prediction errors.</p>
       </div>
--->
       <table class="table stat-table is-narrow">
         <thead>
           <tr><th>Cube ADD (cm) ↓</th><th class="ours">PICR</th><th>RWM</th><th>CaDM</th><th>CaDeLaC</th><th>DeLaN</th><th>Neural-Fly</th></tr>
@@ -190,15 +189,14 @@
           across intervention magnitudes, where baselines lose gain at larger offsets.
         </p>
       </div>
-      <!-- [counterfactual.mp4: 파일 올린 뒤 주석 해제]
-<div class="media-block">
+      <div class="media-block">
         <video autoplay muted loop playsinline controls>
-          <source src="counterfactual.mp4" type="video/mp4">
+          <source src="cf_env241_j2_30Nm_picr_multiview.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <p class="caption">Simulated vs. PICR-predicted motion 300&nbsp;ms after a torque offset, from a shared pre-intervention trajectory.</p>
+        <p class="caption">Same state and same payload, with only ±30&nbsp;N·m added to joint 2.
+          Simulator outcome (opaque) vs. PICR prediction (orange) from three viewpoints; 0.3&nbsp;s shown about 13× slower.</p>
       </div>
--->
     </div>
 
     <!-- Result 3 -->
@@ -281,6 +279,14 @@
           with simulator references, including for an unseen 3&nbsp;kg payload. When the payload switches mid-episode,
           <b>its gravity and inertia terms reach 90% of the reference change within 200&nbsp;ms</b>.
         </p>
+      </div>
+      <div class="media-block">
+        <video autoplay muted loop playsinline controls>
+          <source src="lagrangian_story_a.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p class="caption">PICR decomposes torque as τ = H(q,z)q̈ + c + g. While carrying an unseen 3&nbsp;kg payload, the joint-2 gravity,
+          inertial and Coriolis terms are compared with the simulator and with CaDeLaC and DeLaN. The first 1&nbsp;s is shown 5× slower.</p>
       </div>
       <!-- [fig_lagrangian_story.png: 파일 올린 뒤 주석 해제]
 <div class="media-block">
