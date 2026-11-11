@@ -1,162 +1,3 @@
-Claude
-Jungjin의 MacBook Air, Asleep or app closed
-
-아냐 영상 나와. 
-
-지금 3개 영상 더 추가하고 설명은 아래와 같으니까 고려해서 html update해줘. 
-
-세 영상을 하나로 합쳐 plot/video/picr_videos_combined.mp4에 넣었습니다(64 s, 1920×1080, 30 fps). 영상마다 앞에 같은 스타일의 영어 설명 카드(5 s)를 붙였고, 순서대로 이어지는 것을 프레임으로 확인했습니다.
-
-순서    원본 영상    무엇을 보여주나
-1 / 3 질량이 바뀌는 동안의 예측    cubes_realtime_row.mp4 (30.8 s, 실제 속도)    로봇이 8자로 움직이는 동안 물체 질량이 0.1 kg에서 4 kg까지 늘어납니다. 학습 범위는 2 kg까지입니다. 매 순간 각 모델(PICR과 비교 모델 4개)이 0.3 s 뒤 큐브 위치를 예측합니다. 위 줄은 예측 큐브(색)와 실제 큐브(회색), 아래 줄은 쌓여 가는 예측 오차 점입니다.
-2 / 3 물리적으로 의미 있는 토크 항    lagrangian_story_a.mp4의 (a) 부분 (7.5 s)    PICR은 토크를 τ = H(q,z)q̈ + c + g로 나눠 예측합니다. 학습 때보다 무거운 3 kg를 운반하는 동안, 관절 2의 중력·관성·코리올리 항을 시뮬레이터의 실제 값, 그리고 같은 구조의 비교 모델(CaDeLaC, DeLaN)과 비교합니다. 처음 1 s를 5배 느리게 보여줍니다.
-3 / 3 팔을 밀면 어떻게 되나    cf_env241_j2_30Nm_picr_multiview.mp4 (8.1 s)    같은 상태와 같은 물체에서 관절 2에 ±30 N·m만 더 가했을 때의 결과입니다. 시뮬레이터의 실제 결과(불투명)와 PICR의 예측(주황)을 세 시점에서 비교하고, 0.3 s를 약 13배 느리게 보여줍니다.
-화면 크기: cubes 영상은 이번에 (b)를 키우면서 높이가 860 px가 되어, 합친 영상에서는 위아래에 흰 여백을 넣어 1080으로 맞췄습니다.
-2부 카드: lagrangian_story_a.mp4에 원래 있던 설명 카드는 새 카드와 겹쳐서 뺐습니다.
-cubes 패널 잘림: (b)를 키우면서 크게 빗나간 예측 큐브가 위 줄 패널 가장자리에서 잘리는 비율이 늘었습니다. PICR은 4.5% 프레임이고, 다른 모델은 10–20%입니다. 여백을 다시 넓히면 줄일 수 있지만 그만큼 경로가 작아집니다.
-카드 스크립트는 combine.py에 있어서 문구를 바꾸면 바로 다시 만들 수 있습니다.
-Shared a file, ran 2 commands
-
-다행이네요. 세 영상 반영한 index.html 보내드렸어요. 배치는 이렇게 했습니다:
-
-    picr_videos_combined.mp4 → 맨 위 티저 자리. 세 결과를 설명 카드와 함께 64초로 묶은 영상이라 첫 화면용으로 딱 맞아요. 상단 Video 버튼도 여기로 연결했어요.
-    cf_env241_j2_30Nm_picr_multiview.mp4 → Results 2번 Counterfactual 항목. 캡션: 관절 2에 ±30 N·m, 시뮬레이터(불투명) vs PICR(주황), 세 시점, 약 13배 느리게.
-    lagrangian_story_a.mp4 → Results 4번 Lagrangian terms 항목. 캡션: τ = H(q,z)q̈ + c + g 분해, 3 kg에서 관절 2 중력·관성·코리올리 항 비교, 처음 1초 5배 느리게.
-    cubes_realtime_row.mp4 캡션도 설명대로 고쳤어요 (학습은 2 kg까지, 위 줄 예측 vs 실제, 아래 줄 누적 오차).
-
-세 파일을 docs/에 이 파일명 그대로 올리고 docs/index.html을 교체하면 됩니다. 아직 숨겨져 있는 건 그림 두 개(fig_framework.png, fig_lagrangian_story.png)뿐이에요.
-Index
-Code·HTML
-
-jungbbal
-    PICR
-
-Repository navigation
-
-Code
-Issues
-Pull requests
-Agents
-Actions
-Projects
-Wiki
-Security and quality
-Insights
-
-    Settings
-
-Files
-tT
-
-docs
-
-cf_env241_j2_30Nm_picr_multiview.mp4
-cubes_realtime_row.mp4
-index.html
-lagrangian_story_a.mp4
-latent_v1a_z01_prediction.mp4
-latent_v1b_z3_prediction.mp4
-latent_v2_carry_lift.mp4
-latent_v3_payload_ramp_1x.mp4
-
-        latent_v3_payload_ramp_2x.mp4
-
-    PICR
-
-/docs/
-jungbbal
-jungbbal
-Update index.html
-ace2fae
- · 
-Nov 11, 2026
-Name    Last commit message
-    Last commit date
-..
-cf_env241_j2_30Nm_picr_multiview.mp4
-
-Add files via upload
-
-Nov 11, 2026
-cubes_realtime_row.mp4
-
-Add files via upload
-
-Nov 11, 2026
-index.html
-
-Update index.html
-
-Nov 11, 2026
-lagrangian_story_a.mp4
-
-Add files via upload
-
-Nov 11, 2026
-latent_v1a_z01_prediction.mp4
-
-Add files via upload
-
-Nov 11, 2026
-latent_v1b_z3_prediction.mp4
-
-Add files via upload
-
-Nov 11, 2026
-latent_v2_carry_lift.mp4
-
-Add files via upload
-
-Nov 11, 2026
-latent_v3_payload_ramp_1x.mp4
-
-Add files via upload
-
-Nov 11, 2026
-latent_v3_payload_ramp_2x.mp4
-
-Add files via upload
-
-Nov 11, 2026
-
-근데 보통 어떻게 디렉토리들을 좀 정리하지?
-Checking how to move the video into a folder
-
-먼저 하나 짚을게요: 목록에 picr_videos_combined.mp4가 없어요. 그게 맨 위 티저 영상이라 지금 페이지 첫 화면이 빈 칸일 거예요. 이것도 docs/에 올려주세요.
-
-보통 이렇게 정리해요 (Nerfies, Poke and Strike 같은 프로젝트 페이지 대부분이 이 구조예요):
-
-docs/
-├── index.html
-└── static/
-    ├── videos/   ← mp4 전부
-    ├── images/   ← 그림(png), 썸네일
-    └── pdfs/     ← 논문 pdf (나중에)
-
-index.html만 맨 위에 두고 나머지는 종류별로 static/ 아래에 넣는 식이에요.
-
-GitHub에서 옮기는 가장 쉬운 방법
-
-    저장소 페이지(github.com/jungbbal/PICR)에서 키보드 .(마침표) 를 누르면 웹 VS Code(github.dev)가 열려요.
-    왼쪽 파일 목록에서 docs 우클릭 → New Folder → static, 그 안에 videos 만들기.
-    mp4 파일들을 static/videos로 드래그해서 이동.
-    왼쪽 세 번째 아이콘(Source Control) → 메시지 입력 → Commit & Push.
-
-이렇게 옮기면 html의 영상 경로도 static/videos/파일명.mp4로 바꿔야 해요. 옮기시면 말해 주세요, 경로 바꾼 index.html 바로 드릴게요. (지금처럼 평평하게 둬도 동작엔 문제없으니, 파일이 더 늘기 전에 한 번만 정리하면 충분해요.)
-
-picr_videos_combined.mp4가 없어요. 그게 맨 위 티저 영상
-
-관련 내용은 일단은 빼서 다시 줘봐
-Shared a file, ran a command
-
-티저 영상 섹션을 통째로 뺀 index.html이에요. 상단 Video 버튼은 Results 섹션으로 이동하도록 바꿨어요. 이제 docs/에 있는 파일들만 쓰니 그대로 교체하면 빈 칸 없이 나올 거예요.
-Index
-Code·HTML
-How is Claude doing this session?
-
-
-Claude is AI and can make mistakes.
-Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,12 +5,12 @@ Index · HTML
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PICR: Physics-Informed Causal Reasoning for Nonstationary Robot Dynamics</title>
   <meta name="description" content="Physics-Informed Causal Reasoning (PICR) for nonstationary robot dynamics.">
- 
+
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.4/css/academicons.min.css">
- 
+
   <style>
     body { font-family: 'Noto Sans', sans-serif; }
     .title, .subtitle, h2, h3 { font-family: 'Google Sans', sans-serif; }
@@ -199,7 +40,7 @@ Index · HTML
   </style>
 </head>
 <body>
- 
+
 <!-- ========== Header ========== -->
 <section class="hero">
   <div class="hero-body">
@@ -207,22 +48,22 @@ Index · HTML
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-2 publication-title">Physics-Informed Causal Reasoning<br>for Nonstationary Robot Dynamics</h1>
- 
+
           <div class="publication-authors">
             <span class="author-block">Jungjin Lee<sup>1</sup>,</span>
             <span class="author-block">Se Jin Kim<sup>1</sup>,</span>
             <span class="author-block">Sung Kwon On<sup>2</sup>,</span>
             <span class="author-block">Insoon Yang<sup>1,2,*</sup></span>
           </div>
- 
+
           <div class="affil">
             <span class="author-block"><sup>1</sup>Department of Electrical and Computer Engineering, Seoul National University</span><br>
             <span class="author-block"><sup>2</sup>Graduate School of AI, Seoul National University</span><br>
             <span class="author-block"><sup>*</sup>Corresponding author</span>
           </div>
- 
+
           <div class="venue">Under review</div>
- 
+
           <div class="publication-links">
             <!-- 논문 공개 후 주석 해제
             <span class="link-block">
@@ -253,8 +94,8 @@ Index · HTML
     </div>
   </div>
 </section>
- 
- 
+
+
 <!-- ========== Abstract (작성 후 주석 해제) ==========
 <section class="section alt-bg" id="abstract">
   <div class="container is-max-desktop">
@@ -265,7 +106,7 @@ Index · HTML
   </div>
 </section>
 -->
- 
+
 <!-- ========== Method ========== -->
 <section class="section alt-bg" id="method">
   <div class="container is-max-desktop">
@@ -292,12 +133,12 @@ Index · HTML
 -->
   </div>
 </section>
- 
+
 <!-- ========== Results ========== -->
 <section class="section" id="results">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered section-title">Results</h2>
- 
+
     <!-- Result 1 -->
     <div class="result-sub">
       <h3 class="title is-4">Prediction under a changing and unseen payload</h3>
@@ -327,7 +168,7 @@ Index · HTML
         </tbody>
       </table>
     </div>
- 
+
     <!-- Result 2 -->
     <div class="result-sub">
       <h3 class="title is-4">Counterfactual prediction under torque interventions</h3>
@@ -347,7 +188,7 @@ Index · HTML
           Simulator outcome (opaque) vs. PICR prediction (orange) from three viewpoints; 0.3&nbsp;s shown about 13× slower.</p>
       </div>
     </div>
- 
+
     <!-- Result 3 -->
     <div class="result-sub">
       <h3 class="title is-4">The inferred context encodes payload mass</h3>
@@ -357,7 +198,7 @@ Index · HTML
           It separates by mass right after the lift and <b>follows the payload as its mass changes</b>.
         </p>
       </div>
- 
+
       <!-- (a) Context substitution: v1a vs v1b -->
       <h4 class="title is-5 mt-5">Swapping only the context changes the prediction</h4>
       <div class="content">
@@ -384,7 +225,7 @@ Index · HTML
         </div>
       </div>
       <p class="caption">Grey: real arm. Purple / orange: arm predicted with the 0.1&nbsp;kg / 3&nbsp;kg context. The left plot marks where the inserted context lies.</p>
- 
+
       <!-- (b) Carry lift: v2 -->
       <h4 class="title is-5 mt-6">Context separates by mass right after the lift</h4>
       <div class="content">
@@ -400,7 +241,7 @@ Index · HTML
         </video>
         <p class="caption">Top: robot playback. Bottom left: context plane. Bottom right: PC1 over time.</p>
       </div>
- 
+
       <!-- (c) Payload ramp: v3 -->
       <h4 class="title is-5 mt-6">Context tracks a continuously changing payload</h4>
       <div class="content">
@@ -418,7 +259,7 @@ Index · HTML
           <a href="latent_v3_payload_ramp_1x.mp4" target="_blank" rel="noopener">Watch at real-time speed (1×)</a>.</p>
       </div>
     </div>
- 
+
     <!-- Result 4 -->
     <div class="result-sub">
       <h3 class="title is-4">Learned Lagrangian terms follow the payload</h3>
@@ -444,16 +285,15 @@ Index · HTML
       </div>
 -->
     </div>
- 
+
   </div>
 </section>
- 
+
 <footer class="footer">
   <div class="container is-max-desktop has-text-centered">
     <p class="is-size-7 has-text-grey">This page was adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.</p>
   </div>
 </footer>
- 
+
 </body>
 </html>
-Claude finished the response
