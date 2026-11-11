@@ -79,7 +79,7 @@
               </a>
             </span>
             <span class="link-block">
-              <a href="#teaser" class="button is-normal is-rounded is-dark">
+              <a href="#results" class="button is-normal is-rounded is-dark">
                 <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
               </a>
             </span>
@@ -96,6 +96,7 @@
 </section>
 
 <!-- ========== Teaser video ========== -->
+<!-- [teaser.mp4: 파일 올린 뒤 주석 해제]
 <section class="section pt-0" id="teaser">
   <div class="container is-max-desktop">
     <video autoplay muted loop playsinline controls style="width:100%; border-radius:6px;">
@@ -104,6 +105,7 @@
     </video>
   </div>
 </section>
+-->
 
 <!-- ========== Abstract (작성 후 주석 해제) ==========
 <section class="section alt-bg" id="abstract">
@@ -134,10 +136,12 @@
         but no payload labels are needed at inference.
       </p>
     </div>
-    <div class="media-block">
+    <!-- [fig_framework.png: 파일 올린 뒤 주석 해제]
+<div class="media-block">
       <img src="static/images/fig_framework.png" alt="PICR overview">
       <p class="caption">PICR overview. A context inferred from recent transitions modulates a Lagrangian dynamics network via FiLM to predict motion under applied torques.</p>
     </div>
+-->
   </div>
 </section>
 
@@ -156,13 +160,15 @@
           dynamics from recent interactions and achieves the <b>lowest prediction error in both the seen and unseen mass ranges</b>.
         </p>
       </div>
-      <div class="media-block">
+      <!-- [payload_sweep.mp4: 파일 올린 뒤 주석 해제]
+<div class="media-block">
         <video autoplay muted loop playsinline controls>
           <source src="payload_sweep.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <p class="caption">Figure-eight tracking as the payload ramps 0.1 → 4.0&nbsp;kg (grey: true cube, coloured: predicted).</p>
       </div>
+-->
       <table class="table stat-table is-narrow">
         <thead>
           <tr><th>Cube ADD (cm) ↓</th><th class="ours">PICR</th><th>RWM</th><th>CaDM</th><th>CaDeLaC</th><th>DeLaN</th><th>Neural-Fly</th></tr>
@@ -184,13 +190,15 @@
           across intervention magnitudes, where baselines lose gain at larger offsets.
         </p>
       </div>
-      <div class="media-block">
+      <!-- [counterfactual.mp4: 파일 올린 뒤 주석 해제]
+<div class="media-block">
         <video autoplay muted loop playsinline controls>
           <source src="counterfactual.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <p class="caption">Simulated vs. PICR-predicted motion 300&nbsp;ms after a torque offset, from a shared pre-intervention trajectory.</p>
       </div>
+-->
     </div>
 
     <!-- Result 3 -->
@@ -274,10 +282,12 @@
           <b>its gravity and inertia terms reach 90% of the reference change within 200&nbsp;ms</b>.
         </p>
       </div>
-      <div class="media-block">
+      <!-- [fig_lagrangian_story.png: 파일 올린 뒤 주석 해제]
+<div class="media-block">
         <img src="static/images/fig_lagrangian_story.png" alt="Learned Lagrangian terms">
         <p class="caption">Joint-2 gravity, inertial and Coriolis terms of PICR and baselines vs. the simulator.</p>
       </div>
+-->
     </div>
 
   </div>
