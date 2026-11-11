@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PICR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: Inter, sans-serif; color: #222; line-height: 1.6; }
+    nav { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #eee; text-align: center; padding: 12px; }
+    nav a { margin: 0 12px; color: #444; text-decoration: none; }
+    section { max-width: 900px; margin: auto; padding: 40px 16px; }
+    h1 { text-align: center; font-size: 2.2rem; margin-bottom: 8px; }
+    .authors, .venue { text-align: center; color: #555; }
+    .buttons { text-align: center; margin: 20px 0; }
+    .buttons a { display: inline-block; margin: 4px; padding: 8px 18px; background: #222; color: #fff; border-radius: 20px; text-decoration: none; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .box { background: #f2f2f2; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #999; }
+    pre { background: #f6f6f6; padding: 16px; overflow-x: auto; }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#abstract">Abstract</a><a href="#method">Method</a>
+    <a href="#results">Results</a><a href="#bibtex">BibTeX</a>
+  </nav>
+
+  <section>
+    <h1>Paper Title</h1>
+    <p class="authors">Author 1, Author 2, Author 3</p>
+    <p class="venue">Affiliation · L4DC 2027</p>
+    <div class="buttons">
+      <a href="#">Paper</a><a href="#">arXiv</a><a href="#">Code</a><a href="#">Video</a>
+    </div>
+    <div class="box">Teaser video</div>
+  </section>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>Abstract text.</p>
+  </section>
+
+  <section id="method">
+    <h2>Method</h2>
+    <div class="box">Method figure</div>
+    <p>Method description.</p>
+  </section>
+
+  <section id="results">
+    <h2>Results</h2>
+    <div class="grid">
+      <div class="box">Result 1</div><div class="box">Result 2</div>
+      <div class="box">Result 3</div><div class="box">Result 4</div>
+    </div>
+  </section>
+
+  <section id="bibtex">
+    <h2>BibTeX</h2>
+    <pre>@inproceedings{picr2027, ...}</pre>
+  </section>
+</body>
+</html>
