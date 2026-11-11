@@ -200,32 +200,67 @@
         <p>
           The context is organized by payload mass, and contexts from unseen heavier payloads extend along the same direction.
           It separates by mass right after the lift and <b>follows the payload as its mass changes</b>.
-          Substituting a light-payload context into a 3&nbsp;kg window makes the prediction drift as if the object were lighter.
+        </p>
+      </div>
+
+      <!-- (a) Context substitution: v1a vs v1b -->
+      <h4 class="title is-5 mt-5">Swapping only the context changes the prediction</h4>
+      <div class="content">
+        <p>
+          The robot is carrying a 3&nbsp;kg payload. With the initial state and future torques fixed, we vary only the context
+          and predict 0.24&nbsp;s ahead. A 0.1&nbsp;kg context makes the predicted arm drift <b>as if the object were lighter</b>,
+          while the 3&nbsp;kg context follows the real arm.
         </p>
       </div>
       <div class="columns">
         <div class="column">
-          <p class="video-label">Context after payload lift</p>
-          <div class="media-block mt-0">
-            <video autoplay muted loop playsinline controls>
-              <source src="static/videos/context_lift.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
+          <p class="video-label">Wrong context: z<sub>0.1&nbsp;kg</sub> &nbsp;·&nbsp; error 25.8&nbsp;cm</p>
+          <video autoplay muted loop playsinline controls style="width:100%; border-radius:6px;">
+            <source src="static/videos/latent_v1a_z01_prediction.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
         <div class="column">
-          <p class="video-label">Context under a mass ramp</p>
-          <div class="media-block mt-0">
-            <video autoplay muted loop playsinline controls>
-              <source src="static/videos/context_ramp.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
+          <p class="video-label">Inferred context: z<sub>3&nbsp;kg</sub> &nbsp;·&nbsp; error 3.0&nbsp;cm</p>
+          <video autoplay muted loop playsinline controls style="width:100%; border-radius:6px;">
+            <source src="static/videos/latent_v1b_z3_prediction.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
-      <div class="media-block">
-        <img src="static/images/fig_latent_4panel.png" alt="Physical information in the inferred context">
-        <p class="caption">PCA of inferred contexts, context substitution, and context evolution during lift and mass ramp.</p>
+      <p class="caption">Grey: real arm. Purple / orange: arm predicted with the 0.1&nbsp;kg / 3&nbsp;kg context. The left plot marks where the inserted context lies.</p>
+
+      <!-- (b) Carry lift: v2 -->
+      <h4 class="title is-5 mt-6">Context separates by mass right after the lift</h4>
+      <div class="content">
+        <p>
+          The robot lifts 0.1, 1.19 and 2&nbsp;kg objects. Before the lift the three contexts overlap;
+          <b>within about 0.4&nbsp;s after lifting, each moves to the region of its own mass</b>.
+        </p>
+      </div>
+      <div class="media-block mt-0">
+        <video autoplay muted loop playsinline controls>
+          <source src="static/videos/latent_v2_carry_lift.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p class="caption">Top: robot playback. Bottom left: context plane. Bottom right: PC1 over time.</p>
+      </div>
+
+      <!-- (c) Payload ramp: v3 -->
+      <h4 class="title is-5 mt-6">Context tracks a continuously changing payload</h4>
+      <div class="content">
+        <p>
+          During figure-eight tracking, the payload mass is slowly changed from 4 to 0.1&nbsp;kg and from 0.1 to 4&nbsp;kg.
+          <b>The context follows the mass in real time</b> as it changes.
+        </p>
+      </div>
+      <div class="media-block mt-0">
+        <video autoplay muted loop playsinline controls>
+          <source src="static/videos/latent_v3_payload_ramp_2x.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p class="caption">Two episodes shown at 2× speed; line colour is the true payload mass at each moment.
+          <a href="static/videos/latent_v3_payload_ramp_1x.mp4" target="_blank" rel="noopener">Watch at real-time speed (1×)</a>.</p>
       </div>
     </div>
 
