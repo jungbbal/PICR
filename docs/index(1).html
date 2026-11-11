@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PICR: Physics-Informed Causal Reasoning for Nonstationary Robot Dynamics</title>
+  <meta name="description" content="Physics-Informed Causal Reasoning (PICR) for nonstationary robot dynamics.">
+
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.4/css/academicons.min.css">
+
+  <style>
+    body { font-family: 'Noto Sans', sans-serif; }
+    .title, .subtitle, h2, h3 { font-family: 'Google Sans', sans-serif; }
+    .publication-title { font-family: 'Google Sans', sans-serif; }
+    .publication-authors { font-family: 'Google Sans', sans-serif; font-size: 1.15rem; }
+    .publication-authors a { color: hsl(204, 86%, 53%) !important; }
+    .publication-authors a:hover { text-decoration: underline; }
+    .author-block { display: inline-block; margin: 0 4px; }
+    .affil { font-size: 1rem; color: #4a4a4a; }
+    .venue { font-size: 1.1rem; margin-top: 6px; color: #363636; }
+    .publication-links { margin-top: 18px; }
+    .link-block { display: inline-block; margin: 3px; }
+    .button.is-dark.is-rounded { background-color: #363636; }
+    .section-title { margin-bottom: 1.2rem !important; }
+    .content p { text-align: justify; }
+    .media-block { margin: 1.5rem 0 0.5rem; }
+    .media-block img, .media-block video { width: 100%; border-radius: 6px; display: block; }
+    .caption { font-size: 0.95rem; color: #555; text-align: center; margin-top: 0.6rem; }
+    .result-sub { margin-top: 3rem; }
+    .result-sub:first-of-type { margin-top: 0; }
+    .video-label { font-family: 'Google Sans', sans-serif; font-weight: 500; text-align: center; margin-bottom: 0.4rem; }
+    .stat-table { margin: 1.2rem auto 0; font-size: 0.95rem; }
+    .stat-table th, .stat-table td { text-align: center !important; }
+    .stat-table td.ours, .stat-table th.ours { background: #f3f8fe; font-weight: 700; }
+    .alt-bg { background: #fafafa; }
+    footer.footer { padding: 2rem 1.5rem; background: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- ========== Header ========== -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Physics-Informed Causal Reasoning<br>for Nonstationary Robot Dynamics</h1>
+
+          <div class="publication-authors">
+            <span class="author-block">Jungjin Lee<sup>1</sup>,</span>
+            <span class="author-block">Se Jin Kim<sup>1</sup>,</span>
+            <span class="author-block">Sung Kwon On<sup>2</sup>,</span>
+            <span class="author-block">Insoon Yang<sup>1,2,*</sup></span>
+          </div>
+
+          <div class="affil">
+            <span class="author-block"><sup>1</sup>Department of Electrical and Computer Engineering, Seoul National University</span><br>
+            <span class="author-block"><sup>2</sup>Graduate School of AI, Seoul National University</span><br>
+            <span class="author-block"><sup>*</sup>Corresponding author</span>
+          </div>
+
+          <div class="venue">Under review</div>
+
+          <div class="publication-links">
+            <!-- 논문 공개 후 주석 해제
+            <span class="link-block">
+              <a href="#" class="button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+              </a>
+            </span>
+            -->
+            <span class="link-block">
+              <!-- XXXX.XXXXX 를 실제 arXiv 번호로 교체 (예: 2611.01234) -->
+              <a href="https://arxiv.org/abs/XXXX.XXXXX" class="button is-normal is-rounded is-dark" target="_blank" rel="noopener">
+                <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#teaser" class="button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/jungbbal/PICR" class="button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Teaser video ========== -->
+<section class="section pt-0" id="teaser">
+  <div class="container is-max-desktop">
+    <video autoplay muted loop playsinline controls style="width:100%; border-radius:6px;">
+      <source src="static/videos/teaser.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+
+<!-- ========== Abstract (작성 후 주석 해제) ==========
+<section class="section alt-bg" id="abstract">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title">Abstract</h2>
+    <div class="content">
+      <p>Abstract text.</p>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ========== Method ========== -->
+<section class="section alt-bg" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title">Method</h2>
+    <div class="content">
+      <p>
+        PICR infers a <b>context from a short window of recent state–torque interactions</b> and uses it to
+        <b>condition a shared Lagrangian dynamics network via FiLM</b>. The context modulates the learned
+        inertia matrix and potential energy, while the Coriolis and gravitational forces are still derived from them,
+        so the mechanical structure of the equations of motion is preserved for every context.
+      </p>
+      <p>
+        Network parameters are learned offline; at deployment, <b>only the context is re-inferred from new observations</b>,
+        so the robot adapts to changing physical conditions without retraining or a hand-specified robot model.
+        A physically structured contrastive objective organizes the context by payload properties during training,
+        but no payload labels are needed at inference.
+      </p>
+    </div>
+    <div class="media-block">
+      <img src="static/images/fig_framework.png" alt="PICR overview">
+      <p class="caption">PICR overview. A context inferred from recent transitions modulates a Lagrangian dynamics network via FiLM to predict motion under applied torques.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Results ========== -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title">Results</h2>
+
+    <!-- Result 1 -->
+    <div class="result-sub">
+      <h3 class="title is-4">Prediction under a changing and unseen payload</h3>
+      <div class="content">
+        <p>
+          A Franka Panda arm traces a 3D figure-eight while the payload mass ramps from 0.1 to 4.0&nbsp;kg,
+          beyond the 0.1–2.0&nbsp;kg training range. The mass is never given to the model; PICR infers the current
+          dynamics from recent interactions and achieves the <b>lowest prediction error in both the seen and unseen mass ranges</b>.
+        </p>
+      </div>
+      <div class="media-block">
+        <video autoplay muted loop playsinline controls>
+          <source src="static/videos/payload_sweep.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p class="caption">Figure-eight tracking as the payload ramps 0.1 → 4.0&nbsp;kg (grey: true cube, coloured: predicted).</p>
+      </div>
+      <table class="table stat-table is-narrow">
+        <thead>
+          <tr><th>Cube ADD (cm) ↓</th><th class="ours">PICR</th><th>RWM</th><th>CaDM</th><th>CaDeLaC</th><th>DeLaN</th><th>Neural-Fly</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Seen (0.1–2&nbsp;kg)</td><td class="ours">4.58</td><td>7.09</td><td>6.79</td><td>9.07</td><td>6.82</td><td>7.66</td></tr>
+          <tr><td>Unseen (2–4&nbsp;kg)</td><td class="ours">6.92</td><td>11.63</td><td>10.90</td><td>24.75</td><td>25.65</td><td>24.78</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Result 2 -->
+    <div class="result-sub">
+      <h3 class="title is-4">Counterfactual prediction under torque interventions</h3>
+      <div class="content">
+        <p>
+          Paired runs share the same history but receive different torque offsets (±10–40&nbsp;N·m) on one joint.
+          PICR <b>anticipates how motion responds to the intervention</b> and keeps a stable acceleration-response gain
+          across intervention magnitudes, where baselines lose gain at larger offsets.
+        </p>
+      </div>
+      <div class="media-block">
+        <video autoplay muted loop playsinline controls>
+          <source src="static/videos/counterfactual.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p class="caption">Simulated vs. PICR-predicted motion 300&nbsp;ms after a torque offset, from a shared pre-intervention trajectory.</p>
+      </div>
+    </div>
+
+    <!-- Result 3 -->
+    <div class="result-sub">
+      <h3 class="title is-4">The inferred context encodes payload mass</h3>
+      <div class="content">
+        <p>
+          The context is organized by payload mass, and contexts from unseen heavier payloads extend along the same direction.
+          It separates by mass right after the lift and <b>follows the payload as its mass changes</b>.
+          Substituting a light-payload context into a 3&nbsp;kg window makes the prediction drift as if the object were lighter.
+        </p>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <p class="video-label">Context after payload lift</p>
+          <div class="media-block mt-0">
+            <video autoplay muted loop playsinline controls>
+              <source src="static/videos/context_lift.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <div class="column">
+          <p class="video-label">Context under a mass ramp</p>
+          <div class="media-block mt-0">
+            <video autoplay muted loop playsinline controls>
+              <source src="static/videos/context_ramp.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="media-block">
+        <img src="static/images/fig_latent_4panel.png" alt="Physical information in the inferred context">
+        <p class="caption">PCA of inferred contexts, context substitution, and context evolution during lift and mass ramp.</p>
+      </div>
+    </div>
+
+    <!-- Result 4 -->
+    <div class="result-sub">
+      <h3 class="title is-4">Learned Lagrangian terms follow the payload</h3>
+      <div class="content">
+        <p>
+          Trained only on total torque, PICR recovers the individual gravity and inertial torques in approximate agreement
+          with simulator references, including for an unseen 3&nbsp;kg payload. When the payload switches mid-episode,
+          <b>its gravity and inertia terms reach 90% of the reference change within 200&nbsp;ms</b>.
+        </p>
+      </div>
+      <div class="media-block">
+        <img src="static/images/fig_lagrangian_story.png" alt="Learned Lagrangian terms">
+        <p class="caption">Joint-2 gravity, inertial and Coriolis terms of PICR and baselines vs. the simulator.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container is-max-desktop has-text-centered">
+    <p class="is-size-7 has-text-grey">This page was adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.</p>
+  </div>
+</footer>
+
+</body>
+</html>
