@@ -1,6 +1,6 @@
 # PICR
 
-Code and trained model for the PICR paper (L4DC 2027).
+Code and trained model for the PICR paper (L4DC 2027). The datasets are not released yet (see Setup).
 Project page: https://jungbbal.github.io/PICR/
 
 PICR predicts the joint dynamics of a robot arm carrying an unknown payload. A context encoder reads a short history of
@@ -33,7 +33,8 @@ pip install -r requirements.txt          # Python 3.8, CUDA GPU
 source env.sh                            # PYTHONPATH, data / runs / results roots
 ```
 
-Datasets are not included; see [data/README.md](data/README.md) for the ids and where they go. To keep them on
+**Data availability:** the datasets are not included and are not publicly available yet, so training and evaluation
+cannot be run from this repository alone. [data/README.md](data/README.md) lists the dataset ids and where they go. To keep them on
 another disk, put `export PICR_DATA_ROOT=/path/to/data` in an untracked `env.local.sh`.
 
 ## Training

@@ -1,6 +1,6 @@
 # Data
 
-Datasets are not part of this repository. Place each one as
+Datasets are not part of this repository and are not publicly available yet. Once you have them, place each one as
 
     $PICR_DATA_ROOT/raw/<dataset_id>/<dataset_id>.hdf5
 

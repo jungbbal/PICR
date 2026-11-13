@@ -18,6 +18,7 @@
       --line: #e6e6ea;
       --bg: #ffffff;
       --bg-soft: #f7f7f9;
+      --accent: #c86428;
       --accent-soft: #fff3e8;
       --radius: 10px;
     }
@@ -36,6 +37,7 @@
     .prose { max-width: 720px; margin: 0 auto; }
     section { padding: 64px 0; }
     section + section { border-top: 1px solid var(--line); }
+    section[id], #demos { scroll-margin-top: 68px; }
 
     /* top nav */
     nav.top {
@@ -178,10 +180,10 @@
       <!-- 논문 공개 후: class="btn soon" → class="btn", href에 arXiv 주소 넣기 -->
       <span class="btn soon"><i class="fas fa-file-lines"></i> Paper <small>· coming soon</small></span>
       <a class="btn" href="https://github.com/jungbbal/PICR" target="_blank" rel="noopener"><i class="fab fa-github"></i> Code</a>
-      <a class="btn" href="#payloads"><i class="fas fa-play"></i> Demos</a>
+      <a class="btn" href="#demos"><i class="fas fa-play"></i> Demos</a>
     </div>
 
-    <div class="hero-demo">
+    <div class="hero-demo" id="demos">
       <div class="frame">
         <video data-autoplay muted loop playsinline controls preload="auto">
           <source src="cubes_realtime_row.mp4" type="video/mp4">
@@ -267,7 +269,7 @@
       </div>
       <p class="table-note">Selected baselines are shown in the video; the table gives the full comparison.</p>
 
-      <p class="takeaway">Beyond the training range, PICR's error grows modestly (4.58 → 6.92&nbsp;cm), while the structured baselines more than double.</p>
+      <p class="takeaway">PICR achieves the lowest prediction error among the evaluated models in both payload ranges. On unseen payloads it reaches 6.92&nbsp;cm ADD, compared with 10.90&nbsp;cm for the best baseline.</p>
     </div>
   </div>
 </section>
@@ -311,7 +313,7 @@
       <p class="kicker">Result 3</p>
       <h2>What the context represents</h2>
       <p>
-        The context is never told the payload mass at inference, yet it ends up organized by it. Three experiments make that visible.
+        Payload-based supervision organizes the context during training. At inference, PICR recovers the dynamics-relevant context from interaction history alone. The following experiments show how this context changes and how it influences predictions.
       </p>
 
       <h3>Same robot, same torques, different context</h3>
@@ -422,6 +424,7 @@
       <div class="res">
         <div class="card"><b><i class="fas fa-file-lines"></i> Paper</b><span>Under review. The preprint link will appear here.</span></div>
         <div class="card"><b><i class="fab fa-github"></i> Code &amp; trained models</b><span>Training and evaluation code, the trained PICR model, and the scripts behind the paper results: <a href="https://github.com/jungbbal/PICR" target="_blank" rel="noopener">github.com/jungbbal/PICR</a></span></div>
+        <div class="card"><b><i class="fas fa-database"></i> Data</b><span>The simulation datasets are not publicly available yet. The repository lists the dataset ids and where each file goes.</span></div>
       </div>
       <!-- 공개 후 BibTeX 추가:
       <h3>Citation</h3>
