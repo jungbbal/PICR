@@ -1,0 +1,8 @@
+env.local.sh
+__pycache__/
+*.pyc
+data/raw/
+runs/
+results/
+work/
+*.hdf5

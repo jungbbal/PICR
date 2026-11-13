@@ -1,0 +1,10 @@
+# Tested with Python 3.8.10, CUDA 12.1, one RTX 4090.
+torch==2.4.1
+numpy==1.24.4
+h5py==3.11.0
+scipy==1.10.1
+matplotlib==3.7.5
+pyyaml==6.0.2
+Pillow==10.4.0
+# Figures use Arial (Debian/Ubuntu: ttf-mscorefonts-installer); without it matplotlib falls back to DejaVu Sans.
+# The optional paper/*/render/ scripts need Isaac Lab 2.3.2 / Isaac Sim 5.1.0; nothing else does.

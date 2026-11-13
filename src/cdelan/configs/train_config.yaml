@@ -1,0 +1,276 @@
+# Default TrainConfig for RobotDynamics + ObjDynamics = WMDynamics.
+
+# Data lives in the data lake, not in this repo. Paths resolve through
+# $PICR_DATA_ROOT (default: <repo>/../data). Prefer dataset_id: it names a
+# directory under raw/ and resolves the file through that dataset's
+# manifest.yaml, so renaming a data file cannot silently break a config.
+dataset_id: official_train
+dataset_dir: ${PICR_DATA_ROOT}/raw
+dataset_file: null
+
+# arm_payload (PICR)
+model_type: arm_payload
+
+history_len: 32
+rollout_horizon: 8
+robot_dof: 9
+action_dim: 8
+# Residual DeLaN core: H = H_arm(q) + dH(q, z). The arm branch comes from
+# cdelan.analysis.fit_arm_prior and is frozen, so z drives only the payload.
+arm_prior: false
+arm_prior_ckpt: ''
+arm_prior_freeze: true
+torque_dim: 9
+action_type: torque  # policy or torque
+torque_key: applied_torque
+
+hidden_dim: 256
+object_hidden_dim: 256
+object_depth: 3
+tool_z_offset: 0.1034
+dt: 0.02
+ode_solver: euler  # euler or rk4
+
+batch_size: 256
+epochs: 200
+lr: 1.0e-4
+weight_decay: 1.0e-6
+
+# Standardize every state channel by its train-split std before the six weighted MSEs,
+# so the weights below act on dimensionless errors instead of raw units (metres vs
+# rad/s: nominal 1:1 was effectively 1:3000 against the object position).
+loss_normalize_channels: false
+# Restrict the q / dq loss terms to the first N joints (7 = the Franka arm, no fingers).
+# The fingers are closed on the payload in phase 3, move under contact this model has no
+# term for, and do not enter the object FK -- unfixable and unscored. null = all joints.
+loss_arm_dof: null
+q_weight: 1.0
+dq_weight: 1.
+object_pos_weight: 1.0
+object_quat_weight: 1.
+object_lin_vel_weight: 1.0
+object_ang_vel_weight: 1.
+
+# Latent context encoder and DeLaN FiLM.
+# z = encoder(history_states, history_torques)
+# If delan_use_film is true, z modulates DeLaN H/g/L heads.
+use_context_encoder: false
+# Drop the 13 object channels (pos, quat, lin/ang vel) from the encoder input, so z is
+# estimated from [q, dq, tau] alone. The dynamics core is arm-only regardless; this makes
+# the *estimator* arm-only too (proprioception only).
+context_input_arm_only: false
+latent_dim: 8
+context_encoder_hidden_dim: 256
+context_encoder_depth: 2
+delan_use_film: false
+delan_film_depth: 2
+# FiLM modulation cap: z scales each DeLaN hidden pre-activation by 1+/-limit and
+# shifts by +/-limit. 0.1 (original) throttles the z->M/C/G channel; raise to let
+# payload mass deform the dynamics more freely.
+delan_film_modulation_limit: 0.1
+# Rotor inertia declared to the DeLaN mass matrix: H -> H + delan_eps_diag * I, applied
+# identically in training and in evaluation because it is read off the config in both.
+# `robot_joint_params/joint_armature` is exactly 0 in every recording we have, so the true
+# wrist inertia is 0.0036 kg m^2 and H^-1 turns a 0.70 N*m torque error into 778 rad/s^2 --
+# past the +-1e3 clamp in arm_payload_dynamics.acceleration. This is a fixed constant, never
+# learned. 0.0 is the historical behaviour and what every older checkpoint loads as.
+delan_eps_diag: 0.0
+# Factor W = H^-1 in the DeLaN core instead of H, so the rollout multiplies rather than solves.
+# See TrainConfig.delan_parameterize_inverse. false reproduces every checkpoint trained before
+# Cannot be combined with arm_prior.
+delan_parameterize_inverse: false
+# Learned acceleration residual added to the physics term, qdd = W(tau-c-g) + Delta(q,dq,tau,z).
+# The M^-1 path is capped at 0.169 cm ADD on lift_weldlat even with the logged GT M, c, g; this
+# is what gets under that. Zero-initialised, so false and true start from the same model.
+qdd_residual: false
+qdd_residual_hidden_dim: 256
+qdd_residual_depth: 2
+lambda_context_kl: 1.0e-4
+
+# whole_revise: z -> mass regression head (payload-mass identification).
+lambda_mass_aux: 0.0
+# Supervised-contrastive on context: windows within contrastive_mass_delta kg are
+# positives (z pulled together), rest negatives. Structures z by mass WITHOUT a
+# mass-value regression target. 0 = off.
+lambda_context_contrastive: 0.0
+contrastive_temperature: 0.1
+contrastive_mass_delta: 0.15
+# contrastive_mode: "supcon" = threshold positives/negatives; "proportional" =
+# force latent cosine distance proportional to the mass gap (RSA-correlation loss).
+contrastive_mode: supcon
+# contrastive_per_factor: how a multi-dimensional context_label becomes contrastive losses.
+#   none   - one loss against the merged (standardized Euclidean) gap. A single cosine
+#            distance cannot track two independent gaps, so the easier axis takes the latent:
+#            the merged (mass, alpha) run gave mass rho 0.96 and alpha rho 0.01.
+#   shared - one proportional loss per factor, every one applied to the WHOLE latent. Summed,
+#            not merged, so each factor pulls with equal weight on shared degrees of freedom.
+#   blocks - one loss per factor on its own disjoint slice of the latent. Requires
+#            latent_dim >= 2 per factor. No effect on 1-D labels.
+contrastive_per_factor: none
+# contrastive_label_norm: how the D coordinates of a multi-dimensional context_label are
+# put on a common scale before the merged Euclidean gap.
+#   "std"   = divide by the in-batch std (the metric follows the sampling distribution:
+#             an axis the recording visited narrowly is silently amplified).
+#   "range" = map each onto [0, 1] by contrastive_label_range, so d_Theta is a fixed
+#             metric on the physical parameter space, identical in every batch and run.
+# Only read when contrastive_mode is "proportional".
+contrastive_label_norm: std
+# (D, 2) admissible bounds [theta_min, theta_max] per coordinate, e.g.
+# [[0.1, 2.0], [-0.019, 0.019], [-0.019, 0.019], [-0.019, 0.019]] for theta = (m, c).
+# Deliberately NOT derived from the data. Required by contrastive_label_norm: range.
+contrastive_label_range: null
+# Label-free InfoNCE (study 04): positives are two windows of the SAME episode, so
+# the payload mass never enters the loss. Turning this on (> 0) switches both loaders
+# to the two-views-per-episode sampler; infonce_min_view_gap is the minimum start-index
+# distance between the two views (>= history_len means they share no history frames).
+lambda_context_infonce: 0.0
+infonce_temperature: 0.1
+infonce_min_view_gap: 12
+window_stride: 1
+history_torque_lag: 0   # 1 = encoder history torques tau_{t-12..t-1} (tau_t excluded)
+
+mass_head_hidden_dim: 128
+predict_mass: true
+
+train_split: 0.9
+seed: 42
+num_workers: 4
+output_dir: ${PICR_RUNS_ROOT}
+run_name:
+log_every_batches: 200
+train_batch_fraction: 0.1
+train_subsample_fraction: 0.2
+val_subsample_fraction: 1.0
+
+filter_pre_contact: false
+# Keep only rollout windows whose every step (history + future) is in this phase.
+# null = no filter. Set to 3 to train/eval on the post-lift (phase 3) regime only.
+phase_filter: null
+# Drop rollout windows containing a frame where an ARM actuator hit its effort limit
+# (computed_torque != applied_torque). In those frames the logged numbers do not close
+# tau = H qdd + c + g -- 28 N*m residual against 0.3-1.1 N*m elsewhere, with GT_full, so it
+# is not the payload -- and fitting them is what drives the learned wrist inertia ~100x
+# above the true value. On lift_masscom_lattice_phase3, 46.5% of 20-frame windows survive.
+filter_effort_saturated: false
+filter_velocity_saturated: false
+fd_clock: false
+# Which per-episode physical parameter the proportional contrastive loss structures z by:
+# 'mass' (object_dynamics/mass) or 'arm_damping' (robot_joint_params/joint_damping).
+context_label_key: mass
+# The logged object angular velocity is contact-solver jitter: in phase 3 its
+# magnitude is 1.95x the rate implied by the pose trajectory (corr 0.46), so
+# integrating it does NOT reproduce the recorded quaternions. Models that build
+# the quaternion by integrating omega (whole / whole_revise / coupled) therefore
+# have a hard error floor of ~18 deg at h=8 no matter how well they train.
+# When true, omega is re-derived from the quaternion trajectory via the exact
+# log map, which makes the label self-consistent and drops that floor to ~1.6 deg
+# (the residual is the semi-implicit integration convention, not the label).
+recompute_object_ang_vel: false
+# obs/joint_pos[t+1] == states/joint_position[t] - default_q (exact, 4e-7 rad), so a
+# raw state vector holds the robot one step (0.84 cm of gripper travel) behind the
+# object. When true, both halves are put on the same clock. Required by arm_payload,
+# which derives the object pose from the joint angles by forward kinematics.
+align_object_clock: false
+# Keep only episodes whose payload mass is in [train_mass_min, train_mass_max) kg, for
+# both train and val. Used by the adaptiveness study to hold out a whole mass band so
+# the test masses are genuinely unseen. Defaults admit everything.
+train_mass_min: 0.0
+train_mass_max: .inf
+# Freeze the episode partition from an external JSON contract instead of the seeded shuffle.
+# Accepts a bare {split: [demo_x, ...]} map or a document with those lists under "splits"
+# (data/contracts/*.json). When set, train_split and seed no longer
+# move the partition. external_split_val_key names which list is used for model selection.
+external_split_json: ""
+external_split_val_key: id_test
+object_displacement_threshold: 0.005
+object_velocity_threshold: 0.02
+contact_consecutive_steps: 3
+contact_settle_steps: 5
+subtract_env_origin: true
+
+wandb_project_name: world-model
+wandb_entity: ""
+wandb_name:
+wandb_mode: online
+wandb_artifacts: true
+
+# Post-training evaluation. Artifacts are written under:
+#   <output_dir>/<run_name>/<eval_output_dir>/
+eval_after_train: true
+eval_fail_on_error: false
+eval_output_dir: eval
+eval_split: val
+eval_batch_size:
+eval_max_batches:
+eval_max_episodes:
+eval_num_workers: 0
+
+eval_episode_plot: true
+eval_episode_index: 0
+eval_episode_name:
+eval_start_t: 25
+eval_rollout_steps: 25
+eval_target: gripper
+
+eval_prediction_metrics: true
+eval_pred_horizon: 10
+eval_prediction_max_episodes: 10
+
+eval_video: true
+eval_fps: 25
+eval_max_frames: 250
+
+# --- DeLaN inverse-dynamics objective ------------------------------------------------
+# ||H qdd + c + g - tau||^2 at the logged (q, dq, qdd, tau). Off by default so every
+# existing run reproduces byte for byte.
+lambda_inverse_dynamics: 0.0
+lambda_rollout: 1.0
+id_loss_normalize: true
+id_loss_arm_dof: 7
+id_qdd_source: logged
+
+# --- MCG supervision (study 14 loss ablation, arm C) --------------------------------------
+# Term-by-term supervision of the DeLaN decomposition against GT_full = logged arm M,C,G plus
+# the analytic payload, from the sidecar built by cdelan.analysis.build_mcg_targets. Off by
+# default: it is the only objective here that needs privileged information (the true m, c, I
+# enter through the target), and it needs that sidecar to exist.
+lambda_mcg: 0.0
+mcg_target_file: ""
+mcg_loss_normalize: true
+mcg_loss_arm_dof: 7
+mcg_weight_H: 1.0
+mcg_weight_c: 1.0
+mcg_weight_g: 1.0
+# Rollout-loss position target: logged (recorded states) or integrated_velocity (true velocities
+# pushed through the model's integrator; see TrainConfig.rollout_target).
+rollout_target: logged
+# lr schedule: none (constant) or cosine (to 0.1 x lr over the run, per epoch).
+lr_schedule: none
+# weight EMA (0 = off) and the validation number that picks best.pt (loss | rollout_loss).
+ema_decay: 0.0
+best_metric: loss
+# encoder residual features / input standardization, history-consistency torque loss,
+# and the linear-in-weights basis core (film | basis). All off = every earlier run.
+context_residual_features: false
+context_input_standardize: false
+lambda_history_id: 0.0
+history_id_intervals: 4
+lambda_qdd_label: 0.0
+qdd_label_normalize: true
+delan_film_temperature: 1.0
+delan_film_beta_modulation_limit: null
+delan_film_beta_temperature: null
+lambda_rollout_qdd: 0.0
+delan_core: film
+delan_basis_count: 12
+context_ls_refine: false
+context_ls_trust: 0.5
+infonce_latent_dims: 0
+# context encoder reads [dq, tau] per history frame (no q). Off = every earlier run.
+context_drop_q: false
+
+# InfoNCE positives ("episode" | "mass_com_soft" | "mass"), see context_losses.context_infonce_loss
+infonce_positives: episode
+infonce_mass_delta: 0.15
+infonce_com_sigma: 0.01
+infonce_mass_sigma: 0.15
