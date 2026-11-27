@@ -1,7 +1,7 @@
 # PICR
 
 Code and trained model for the PICR paper (L4DC 2027). The datasets are not released yet (see Setup).
-Project page: https://jungbbal.github.io/PICR/
+Paper: https://arxiv.org/abs/2611.19251 · Project page: https://jungbbal.github.io/PICR/
 
 PICR predicts the joint dynamics of a robot arm carrying an unknown payload. A context encoder reads a short history of
 joint states and torques and produces a latent z. A Lagrangian model then predicts q̈ = H(q, z)⁻¹ (τ − c(q, q̇, z) − g(q, z)),

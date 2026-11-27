@@ -126,6 +126,8 @@
     .res .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
     .res .card b { display: block; margin-bottom: 4px; }
     .res .card span { color: var(--ink-3); font-size: 15px; }
+    pre.bib { background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px;
+      font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-x: auto; text-align: left; }
 
     footer { padding: 32px 0 48px; text-align: center; font-size: 13px; color: var(--ink-3); border-top: 1px solid var(--line); }
 
@@ -176,8 +178,7 @@
     </div>
 
     <div class="buttons">
-      <!-- 논문 공개 후: class="btn soon" → class="btn", href에 arXiv 주소 넣기 -->
-      <span class="btn soon"><i class="fas fa-file-lines"></i> Paper <small>· coming soon</small></span>
+      <a class="btn" href="https://arxiv.org/abs/2611.19251" target="_blank" rel="noopener"><i class="fas fa-file-lines"></i> Paper <small>· arXiv</small></a>
       <a class="btn" href="https://github.com/jungbbal/PICR" target="_blank" rel="noopener"><i class="fab fa-github"></i> Code</a>
       <a class="btn" href="#demos"><i class="fas fa-play"></i> Demos</a>
     </div>
@@ -425,14 +426,17 @@
       <p class="kicker">Resources</p>
       <h2>Paper, code and citation</h2>
       <div class="res">
-        <div class="card"><b><i class="fas fa-file-lines"></i> Paper</b><span>Under review. The preprint link will appear here.</span></div>
+        <div class="card"><b><i class="fas fa-file-lines"></i> Paper</b><span>Preprint on arXiv: <a href="https://arxiv.org/abs/2611.19251" target="_blank" rel="noopener">arXiv:2611.19251</a> (<a href="https://arxiv.org/pdf/2611.19251" target="_blank" rel="noopener">PDF</a>). Under review.</span></div>
         <div class="card"><b><i class="fab fa-github"></i> Code &amp; trained models</b><span>Training and evaluation code, the trained PICR model, and the scripts behind the paper results: <a href="https://github.com/jungbbal/PICR" target="_blank" rel="noopener">github.com/jungbbal/PICR</a></span></div>
         <div class="card"><b><i class="fas fa-database"></i> Data</b><span>The simulation datasets are not publicly available yet. The repository lists the dataset ids and where each file goes.</span></div>
       </div>
-      <!-- 공개 후 BibTeX 추가:
       <h3>Citation</h3>
-      <pre>@article{lee2027picr, ...}</pre>
-      -->
+      <pre class="bib">@article{lee2026picr,
+  title   = {Physics-Informed Causal Reasoning for Nonstationary Robot Dynamics},
+  author  = {Lee, Jungjin and Kim, Se Jin and On, Sung Kwon and Yang, Insoon},
+  journal = {arXiv preprint arXiv:2611.19251},
+  year    = {2026}
+}</pre>
     </div>
   </div>
 </section>
